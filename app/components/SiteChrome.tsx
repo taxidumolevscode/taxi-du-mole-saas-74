@@ -1,6 +1,8 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
-import { ReactNode } from "react";
+import { ReactNode, useState } from "react";
 import { navItems } from "../site-data";
 
 function LogoBadge() {
@@ -63,6 +65,8 @@ export function SectionHeader({
 }
 
 export function SiteChrome({ children }: { children: ReactNode }) {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
   return (
     <main className="relative min-h-screen overflow-hidden text-black">
       <div className="pointer-events-none absolute inset-0">
@@ -71,13 +75,15 @@ export function SiteChrome({ children }: { children: ReactNode }) {
         <div className="absolute bottom-32 left-1/3 h-80 w-80 rounded-full bg-white/70 blur-3xl" />
       </div>
 
-      <div className="relative mx-auto max-w-[1600px] px-4 pb-28 pt-4 sm:px-6 lg:px-8">
+      <div className="relative mx-auto max-w-[1600px] px-4 pb-10 pt-4 sm:px-6 lg:px-8">
         <header className="sticky top-4 z-50 rounded-[30px] border border-white/60 bg-white/70 px-4 py-4 shadow-[0_18px_45px_rgba(17,17,17,0.08)] backdrop-blur-xl sm:px-6">
           <div className="flex items-center justify-between gap-4">
-            <Link className="flex items-center gap-4" href="/#hero">
+            <Link className="flex min-w-0 items-center gap-3 sm:gap-4" href="/#hero">
               <LogoBadge />
-              <div>
-                <p className="font-display text-xl font-semibold">Taxi Du Môle</p>
+              <div className="min-w-0">
+                <p className="font-display text-lg font-semibold whitespace-nowrap sm:text-xl">
+                  Taxi Du Môle
+                </p>
                 <p className="text-sm text-black/55">Haute-Savoie 74 • 24h/24</p>
               </div>
             </Link>
@@ -94,13 +100,44 @@ export function SiteChrome({ children }: { children: ReactNode }) {
               ))}
             </div>
 
-            <a
-              className="inline-flex h-12 min-w-[198px] items-center justify-center rounded-full bg-black px-5 text-center text-sm font-semibold whitespace-nowrap text-white hover:-translate-y-0.5"
-              href="tel:+33680423031"
-            >
-              06 80 42 30 31
-            </a>
+            <div className="flex items-center gap-2 sm:gap-3">
+              <a
+                className="inline-flex h-12 min-w-[148px] items-center justify-center rounded-full bg-black px-4 text-center text-xs font-semibold whitespace-nowrap text-white hover:-translate-y-0.5 sm:min-w-[198px] sm:px-5 sm:text-sm"
+                href="tel:+33680423031"
+              >
+                06 80 42 30 31
+              </a>
+              <button
+                aria-expanded={isMobileMenuOpen}
+                aria-label="Ouvrir le menu"
+                className="flex h-12 w-12 items-center justify-center rounded-2xl border border-black bg-[#ffb600] text-black shadow-[0_12px_24px_rgba(255,182,0,0.24)] hover:-translate-y-0.5 xl:hidden"
+                onClick={() => setIsMobileMenuOpen((value) => !value)}
+                type="button"
+              >
+                <span className="flex flex-col gap-1.5">
+                  <span className="block h-[3px] w-5 rounded-full bg-white" />
+                  <span className="block h-[3px] w-5 rounded-full bg-white" />
+                  <span className="block h-[3px] w-5 rounded-full bg-white" />
+                </span>
+              </button>
+            </div>
           </div>
+
+          {isMobileMenuOpen ? (
+            <div className="mt-4 space-y-2 rounded-[24px] border border-black/10 bg-[#f8f6ee] p-3 shadow-[inset_1px_1px_0_rgba(255,255,255,0.88),inset_-1px_-1px_0_rgba(17,17,17,0.05)] xl:hidden">
+              {navItems.map((item) => (
+                <Link
+                  key={item.href}
+                  className="flex items-center justify-between rounded-[20px] border border-black/[0.08] bg-white px-4 py-3 text-sm font-semibold hover:-translate-y-0.5"
+                  href={item.href}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  <span className="text-black/45">{item.tag}</span>
+                  <span>{item.label}</span>
+                </Link>
+              ))}
+            </div>
+          ) : null}
         </header>
 
         <div className="mt-6 grid gap-6 xl:grid-cols-[280px_minmax(0,1fr)]">
@@ -247,19 +284,6 @@ export function SiteChrome({ children }: { children: ReactNode }) {
         </footer>
       </div>
 
-      <nav className="fixed inset-x-4 bottom-4 z-50 rounded-[28px] border border-white/70 bg-white/80 p-2 shadow-[0_22px_50px_rgba(17,17,17,0.12)] backdrop-blur-xl xl:hidden">
-        <div className="grid grid-cols-4 gap-2">
-          {navItems.map((item) => (
-            <Link
-              key={item.href}
-              className="rounded-[20px] border border-black bg-[#ffb600] px-2 py-3 text-center text-[11px] font-semibold leading-4 text-black shadow-[0_10px_20px_rgba(255,182,0,0.24),inset_0_1px_0_rgba(255,245,199,0.95)] hover:bg-[#ffc31f]"
-              href={item.href}
-            >
-              {item.label}
-            </Link>
-          ))}
-        </div>
-      </nav>
     </main>
   );
 }

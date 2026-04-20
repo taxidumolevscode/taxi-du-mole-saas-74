@@ -121,26 +121,14 @@ export default function Home() {
         </div>
 
         <div className="relative z-10 mt-10 grid gap-5 xl:grid-cols-3">
-          {processSteps.map((step, index) => (
+          {processSteps.map((step) => (
             <article
               key={step.step}
               className="rounded-[30px] border border-black/10 bg-white p-6 shadow-[0_16px_36px_rgba(17,17,17,0.06)]"
             >
               <div className="flex items-center gap-4">
                 <div
-                  className={`flex h-14 w-14 items-center justify-center rounded-[18px] text-sm font-bold text-white shadow-[0_14px_24px_rgba(17,17,17,0.12)] ${
-                    index === 0
-                      ? "bg-[#315efb]"
-                      : index === 1
-                        ? "bg-[#c34b3c]"
-                        : index === 2
-                          ? "bg-[#3cae77]"
-                          : index === 3
-                            ? "bg-[#7d42ff]"
-                            : index === 4
-                              ? "bg-[#e58d00]"
-                              : "bg-[#cf5148]"
-                  }`}
+                  className="flex h-14 w-14 items-center justify-center rounded-[18px] bg-[#e58d00] text-sm font-bold text-white shadow-[0_14px_24px_rgba(229,141,0,0.26)]"
                 >
                   {step.step}
                 </div>
