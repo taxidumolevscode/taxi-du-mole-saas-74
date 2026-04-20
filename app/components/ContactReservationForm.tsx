@@ -3,7 +3,7 @@
 import { FormEvent, useState } from "react";
 
 const ENDPOINT =
-  "https://script.google.com/macros/s/AKfycbwSWOIRmJgaKRV2wYBfXxqht_A-OQiS9ob0J3SxyFNtbHleMF0v1BlQZWsWhL2IXBth/exec";
+  "https://script.google.com/macros/s/AKfycbwsJf0KrRFMueOXtz7LqskQtq5OnIPhd2bha5PcgVA2TcBiPAS52ZhkDny5fTqJwIT8/exec";
 
 type FeedbackState = "idle" | "sending" | "success" | "error";
 
@@ -97,16 +97,17 @@ export function ContactReservationForm() {
           </div>
         </div>
 
-        <form className="grid gap-4" onSubmit={handleSubmit}>
+        <form autoComplete="on" className="grid gap-4" onSubmit={handleSubmit}>
           <div>
             <label className="mb-2 block text-sm font-semibold text-black/80">
               Nom / Prenom
             </label>
             <input
+              autoComplete="name"
               name="name"
               required
               className="h-12 w-full rounded-2xl border border-black/10 bg-white px-4 text-sm outline-none focus:border-black/30 focus:shadow-[0_0_0_4px_rgba(255,182,0,0.15)]"
-              placeholder="Votre nom"
+              placeholder="Votre nom et prenom"
               type="text"
             />
           </div>
@@ -117,6 +118,7 @@ export function ContactReservationForm() {
                 Telephone
               </label>
               <input
+                autoComplete="tel"
                 name="phone"
                 required
                 className="h-12 w-full rounded-2xl border border-black/10 bg-white px-4 text-sm outline-none focus:border-black/30 focus:shadow-[0_0_0_4px_rgba(255,182,0,0.15)]"
@@ -130,6 +132,7 @@ export function ContactReservationForm() {
                 Email
               </label>
               <input
+                autoComplete="email"
                 name="email"
                 required
                 className="h-12 w-full rounded-2xl border border-black/10 bg-white px-4 text-sm outline-none focus:border-black/30 focus:shadow-[0_0_0_4px_rgba(255,182,0,0.15)]"
@@ -170,6 +173,7 @@ export function ContactReservationForm() {
               Adresse De Prise En Charge
             </label>
             <input
+              autoComplete="street-address"
               name="pickup"
               required
               className="h-12 w-full rounded-2xl border border-black/10 bg-white px-4 text-sm outline-none focus:border-black/30 focus:shadow-[0_0_0_4px_rgba(255,182,0,0.15)]"
@@ -183,6 +187,7 @@ export function ContactReservationForm() {
               Destination
             </label>
             <input
+              autoComplete="off"
               name="destination"
               required
               className="h-12 w-full rounded-2xl border border-black/10 bg-white px-4 text-sm outline-none focus:border-black/30 focus:shadow-[0_0_0_4px_rgba(255,182,0,0.15)]"
