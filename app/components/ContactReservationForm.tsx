@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
 
 const ENDPOINT =
@@ -46,6 +47,7 @@ function buildCalendarLink(data: CalendarData) {
 export function ContactReservationForm() {
   const [status, setStatus] = useState<FeedbackState>("idle");
   const [calendarLink, setCalendarLink] = useState<string | null>(null);
+  const router = useRouter();
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -75,6 +77,7 @@ export function ContactReservationForm() {
       );
       setStatus("success");
       form.reset();
+      router.push("/demande-envoyee");
     } catch {
       setStatus("error");
     }
