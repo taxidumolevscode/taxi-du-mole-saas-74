@@ -3,7 +3,7 @@
 import { FormEvent, useState } from "react";
 
 const ENDPOINT =
-  "https://script.google.com/macros/s/AKfycbwsJf0KrRFMueOXtz7LqskQtq5OnIPhd2bha5PcgVA2TcBiPAS52ZhkDny5fTqJwIT8/exec";
+  "https://script.google.com/macros/s/AKfycbzXwCBwGYd7Ao_v3wvJLRN-hpqEyv-aJp4xaGnaa53_orXSnIORDhdhXncHYBcxE-oa/exec";
 
 type FeedbackState = "idle" | "sending" | "success" | "error";
 
