@@ -21,7 +21,7 @@ export default function Home() {
           imageClassName="object-right-bottom"
         />
         <div className="rounded-[30px] bg-[#f8f6ee] p-6 shadow-[inset_1px_1px_0_rgba(255,255,255,0.92),inset_-1px_-1px_0_rgba(17,17,17,0.05)] md:p-8">
-          <div className="flex flex-wrap gap-3">
+          <div className="hidden flex-wrap justify-center gap-3 md:flex">
             {heroTrustBadges.map((badge) => (
               <span
                 key={badge}
