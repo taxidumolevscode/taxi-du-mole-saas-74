@@ -32,24 +32,24 @@ export default function Home() {
             ))}
           </div>
 
-          <p className="mt-7 text-sm font-semibold uppercase tracking-[0.34em] text-black/45">
+          <div className="mt-7 flex justify-center">
+            <Image
+              alt="Logo Taxi Du Môle"
+              className="h-auto w-full max-w-[340px] md:max-w-[430px]"
+              height={430}
+              priority
+              src="https://taxidumole.com/wp-content/uploads/2025/10/Logo-Mascote-Taxi-du-Mole-Image-8-oct.-2025-a-15_52_01.png"
+              width={430}
+            />
+          </div>
+          <p className="mt-7 text-center text-sm font-semibold uppercase tracking-[0.34em] text-black/45">
             Haute-Savoie 74
           </p>
-          <h1 className="font-display mt-4 max-w-4xl text-4xl font-semibold leading-tight md:text-6xl">
+          <h1 className="font-display mt-4 text-center text-4xl font-semibold leading-tight md:text-6xl">
             Taxi Du Môle, Votre Taxi Conventionné Longue Distance Vers
             l&apos;Hôpital De Votre Choix.
           </h1>
-          <div className="mt-6">
-            <Image
-              alt="Mascotte Taxi Du Môle"
-              className="h-auto w-full max-w-[250px]"
-              height={250}
-              priority
-              src="https://taxidumole.com/wp-content/uploads/2025/10/Logo-Mascote-Taxi-du-Mole-Image-8-oct.-2025-a-15_52_01.png"
-              width={250}
-            />
-          </div>
-          <p className="mt-6 max-w-3xl text-lg leading-8 text-black/65">
+          <p className="mx-auto mt-6 max-w-3xl text-center text-lg leading-8 text-black/65">
             Taxi du Môle est votre partenaire de confiance pour vos transferts
             médicalisés assis vers les hôpitaux de Lyon, Grenoble et partout en
             France.
