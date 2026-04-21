@@ -128,11 +128,10 @@ export function SiteChrome({ children }: { children: ReactNode }) {
               {navItems.map((item) => (
                 <Link
                   key={item.href}
-                  className="flex items-center justify-between rounded-[20px] border border-black/[0.08] bg-white px-4 py-3 text-sm font-semibold hover:-translate-y-0.5"
+                  className="flex items-center rounded-[20px] border border-black/[0.08] bg-white px-4 py-3 text-left text-sm font-semibold hover:-translate-y-0.5"
                   href={item.href}
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
-                  <span className="text-black/45">{item.tag}</span>
                   <span>{item.label}</span>
                 </Link>
               ))}
@@ -151,12 +150,9 @@ export function SiteChrome({ children }: { children: ReactNode }) {
                   {navItems.map((item) => (
                     <Link
                       key={item.href}
-                      className="flex items-center justify-between rounded-[22px] border border-black/[0.08] bg-white px-4 py-4 hover:-translate-y-0.5"
+                      className="flex items-center rounded-[22px] border border-black/[0.08] bg-white px-6 py-4 text-left hover:-translate-y-0.5"
                       href={item.href}
                     >
-                      <span className="text-sm font-semibold text-black/45">
-                        {item.tag}
-                      </span>
                       <span className="text-sm font-semibold">{item.label}</span>
                     </Link>
                   ))}
