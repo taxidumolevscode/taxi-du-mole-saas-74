@@ -3,7 +3,9 @@
 import Link from "next/link";
 import Image from "next/image";
 import { ReactNode, useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
 import { navItems } from "../site-data";
+import { medicalCityLinks } from "../medical-cities";
 
 function LogoBadge() {
   return (
@@ -64,8 +66,42 @@ export function SectionHeader({
   );
 }
 
+function CityDropdownLinks({
+  className,
+  itemClassName,
+  onClick,
+}: {
+  className: string;
+  itemClassName: string;
+  onClick?: () => void;
+}) {
+  return (
+    <div className={className}>
+      <Link
+        className={itemClassName}
+        href="/ville"
+        onClick={onClick}
+      >
+        Toutes Les Villes
+      </Link>
+      {medicalCityLinks.map((city) => (
+        <Link
+          key={city.href}
+          className={itemClassName}
+          href={city.href}
+          onClick={onClick}
+        >
+          {city.label}
+        </Link>
+      ))}
+    </div>
+  );
+}
+
 export function SiteChrome({ children }: { children: ReactNode }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const pathname = usePathname();
+  const router = useRouter();
 
   return (
     <main className="relative min-h-screen overflow-hidden text-black">
@@ -98,6 +134,16 @@ export function SiteChrome({ children }: { children: ReactNode }) {
                   <span className="relative z-10">{item.label}</span>
                 </Link>
               ))}
+              <details className="group relative">
+                <summary className="flex cursor-pointer list-none items-center gap-2 rounded-full border border-black bg-[#ffb600] px-5 py-2.5 text-sm font-semibold text-black shadow-[0_12px_24px_rgba(255,182,0,0.28),0_3px_8px_rgba(17,17,17,0.08),inset_0_1px_0_rgba(255,245,199,0.95)] before:absolute before:inset-x-4 before:top-1 before:h-1/2 before:rounded-full before:bg-white/35 before:blur-md before:content-[''] hover:-translate-y-0.5 hover:bg-[#ffc31f]">
+                  <span className="relative z-10">Ville</span>
+                  <span className="relative z-10 text-xs">▾</span>
+                </summary>
+                <CityDropdownLinks
+                  className="absolute right-0 top-[calc(100%+12px)] z-50 grid max-h-[70vh] w-[320px] overflow-y-auto rounded-[28px] border border-black/10 bg-white p-3 shadow-[0_24px_60px_rgba(17,17,17,0.14)]"
+                  itemClassName="rounded-[18px] px-4 py-3 text-sm font-semibold text-black hover:bg-[#f8f6ee]"
+                />
+              </details>
             </div>
 
             <div className="flex items-center gap-2 sm:gap-3">
@@ -135,6 +181,27 @@ export function SiteChrome({ children }: { children: ReactNode }) {
                   <span>{item.label}</span>
                 </Link>
               ))}
+              <div className="rounded-[20px] border border-black/[0.08] bg-white px-4 py-3">
+                <label className="mb-2 block text-xs font-semibold uppercase tracking-[0.22em] text-black/45">
+                  Ville
+                </label>
+                <select
+                  aria-label="Choisir une ville"
+                  className="w-full rounded-[16px] border border-black/10 bg-[#f8f6ee] px-4 py-3 text-sm font-semibold text-black outline-none"
+                  defaultValue={pathname?.startsWith("/ville/") ? pathname : "/ville"}
+                  onChange={(event) => {
+                    setIsMobileMenuOpen(false);
+                    router.push(event.target.value);
+                  }}
+                >
+                  <option value="/ville">Toutes Les Villes</option>
+                  {medicalCityLinks.map((city) => (
+                    <option key={city.href} value={city.href}>
+                      {city.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
             </div>
           ) : null}
         </header>
@@ -156,6 +223,15 @@ export function SiteChrome({ children }: { children: ReactNode }) {
                       <span className="text-sm font-semibold">{item.label}</span>
                     </Link>
                   ))}
+                  <details className="rounded-[22px] border border-black/[0.08] bg-white p-1 open:bg-[#fff7db]">
+                    <summary className="cursor-pointer list-none rounded-[18px] px-5 py-4 text-left text-sm font-semibold">
+                      Ville
+                    </summary>
+                    <CityDropdownLinks
+                      className="grid gap-2 px-2 pb-2"
+                      itemClassName="rounded-[18px] border border-black/[0.06] bg-white px-4 py-3 text-sm font-semibold text-black/78 hover:-translate-y-0.5"
+                    />
+                  </details>
                 </div>
 
                 <div className="mt-6 rounded-[26px] bg-black p-5 text-white">
