@@ -229,7 +229,7 @@ export default async function CityPage({ params }: CityPageProps) {
               >
                 <summary className="flex cursor-pointer list-none items-center justify-between gap-4">
                   <h3 className="text-lg font-semibold">{item.question}</h3>
-                  <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[#ffb600] text-xl font-bold text-black transition group-open:rotate-45">
+                  <span className="flex h-10 min-h-10 w-10 min-w-10 shrink-0 items-center justify-center rounded-2xl bg-[#ffb600] text-xl font-bold text-black transition group-open:rotate-45">
                     +
                   </span>
                 </summary>
@@ -275,7 +275,11 @@ export default async function CityPage({ params }: CityPageProps) {
               </div>
             </div>
 
-            <div className="relative min-h-[320px] flex-1 overflow-hidden rounded-[30px] border border-black/10 bg-[#fff7db] p-4 shadow-[0_18px_38px_rgba(255,182,0,0.12)]">
+            <a
+              aria-label="Appeler Taxi du Môle"
+              className="relative block min-h-[320px] flex-1 overflow-hidden rounded-[30px] border border-black/10 bg-[#fff7db] p-4 shadow-[0_18px_38px_rgba(255,182,0,0.12)] hover:-translate-y-0.5"
+              href="tel:+33680423031"
+            >
               <Image
                 alt="Visuel Taxi du Môle"
                 className="h-full w-full object-contain object-center"
@@ -283,7 +287,7 @@ export default async function CityPage({ params }: CityPageProps) {
                 sizes="(min-width: 1280px) 40vw, 100vw"
                 src="https://taxidumole.com/wp-content/uploads/2025/12/ChatGPT-Image-2-dec.-2025-a-22_52_33.png"
               />
-            </div>
+            </a>
           </div>
 
           <ContactReservationForm />
