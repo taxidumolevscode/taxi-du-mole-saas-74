@@ -53,7 +53,7 @@ export default function DemandeEnvoyeePage() {
             </div>
 
             <p className="mt-8 text-sm font-semibold uppercase tracking-[0.32em] text-black/45">
-              Réservation Confirmée
+              Je Consulte Mon Agenda
             </p>
             <h1 className="font-display mt-4 text-4xl font-semibold leading-tight text-black md:text-6xl">
               Demande Envoyée !
