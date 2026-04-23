@@ -4,6 +4,7 @@ import Link from "next/link";
 import { CarShowcase } from "../components/CarShowcase";
 import { RoadAccent } from "../components/RoadAccent";
 import { SiteChrome } from "../components/SiteChrome";
+import { ScrollToTop } from "./ScrollToTop";
 
 export const metadata: Metadata = {
   title: "Demande envoyée | Taxi du Môle",
@@ -14,6 +15,7 @@ export const metadata: Metadata = {
 export default function DemandeEnvoyeePage() {
   return (
     <SiteChrome>
+      <ScrollToTop />
       <section className="relative overflow-hidden rounded-[36px] border border-white/60 bg-white/70 p-5 shadow-[0_24px_60px_rgba(17,17,17,0.08)] backdrop-blur-xl md:p-8">
         <RoadAccent
           className="right-[-8%] top-[10%] h-[320px] w-[46%] opacity-[0.12]"
@@ -33,7 +35,7 @@ export default function DemandeEnvoyeePage() {
           </div>
 
           <div className="mt-8 rounded-[32px] border border-black/10 bg-[#f8f6ee] p-6 text-center shadow-[inset_1px_1px_0_rgba(255,255,255,0.9),inset_-1px_-1px_0_rgba(17,17,17,0.05)] md:p-10">
-            <div className="mx-auto flex h-24 w-24 items-center justify-center rounded-full bg-[#ffb600] text-black shadow-[0_20px_38px_rgba(255,182,0,0.28)]">
+            <div className="mx-auto flex h-24 w-24 items-center justify-center rounded-full bg-[#47c266] text-white shadow-[0_20px_38px_rgba(71,194,102,0.28)]">
               <svg
                 aria-hidden="true"
                 className="h-11 w-11"

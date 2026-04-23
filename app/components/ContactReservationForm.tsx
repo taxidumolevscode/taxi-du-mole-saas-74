@@ -77,7 +77,8 @@ export function ContactReservationForm() {
       );
       setStatus("success");
       form.reset();
-      router.push("/demande-envoyee");
+      window.scrollTo({ top: 0, behavior: "auto" });
+      router.push("/demande-envoyee", { scroll: true });
     } catch {
       setStatus("error");
     }
