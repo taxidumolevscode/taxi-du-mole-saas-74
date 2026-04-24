@@ -101,3 +101,26 @@ textarea {
   animation: motionDotPulse 1.4s ease-in-out infinite;
   box-shadow: 0 0 0 6px rgba(17, 17, 17, 0.06);
 }
+
+.marketing-title {
+  max-inline-size: min(20ch, 100%);
+  overflow-wrap: normal;
+  word-break: normal;
+  hyphens: auto;
+  text-wrap: balance;
+}
+
+.marketing-title-center {
+  margin-inline: auto;
+  text-align: center;
+}
+
+.marketing-title-left {
+  text-align: left;
+}
+
+@media (max-width: 767px) {
+  .marketing-title {
+    max-inline-size: min(14ch, 100%);
+  }
+}

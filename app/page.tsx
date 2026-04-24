@@ -45,7 +45,7 @@ export default function Home() {
           <p className="mt-7 text-center text-sm font-semibold uppercase tracking-[0.34em] text-black/45">
             Haute-Savoie 74
           </p>
-          <h1 className="font-display mt-4 text-center text-4xl font-semibold leading-tight md:text-6xl">
+          <h1 className="marketing-title marketing-title-center font-display mt-4 text-center text-4xl font-semibold leading-[1.04] md:text-6xl">
             Taxi Du Môle, Votre Taxi Conventionné Longue Distance Vers
             l&apos;Hôpital De Votre Choix.
           </h1>
@@ -110,7 +110,7 @@ export default function Home() {
           <p className="inline-flex rounded-full border border-black bg-[#ffb600] px-4 py-2 text-sm font-semibold uppercase tracking-[0.26em] text-black shadow-[0_10px_22px_rgba(255,182,0,0.22)]">
             Comment Ca Marche
           </p>
-          <h2 className="font-display mt-6 text-4xl font-semibold leading-tight text-black md:text-6xl">
+          <h2 className="marketing-title marketing-title-center font-display mt-6 text-4xl font-semibold leading-[1.06] text-black md:text-6xl">
             Un Processus Simple En <span className="text-[#ffb600]">6 Etapes.</span>
           </h2>
           <p className="mx-auto mt-5 max-w-3xl text-lg leading-8 text-black/65">

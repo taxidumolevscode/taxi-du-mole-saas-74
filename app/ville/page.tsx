@@ -4,17 +4,51 @@ import Link from "next/link";
 import { CarShowcase } from "../components/CarShowcase";
 import { RoadAccent } from "../components/RoadAccent";
 import { SiteChrome } from "../components/SiteChrome";
+import {
+  buildBreadcrumbJsonLd,
+  buildCollectionPageJsonLd,
+  buildPageMetadata,
+} from "../lib/seo";
 import { medicalCityLinks } from "../medical-cities";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: "Villes desservies | Taxi conventionné CPAM Haute-Savoie | Taxi du Môle",
   description:
     "Consultez les villes desservies par Taxi du Môle pour les transports médicaux conventionnés CPAM en Haute-Savoie.",
-};
+  path: "/ville",
+  keywords: [
+    "taxi conventionné Haute-Savoie",
+    "taxi CPAM Haute-Savoie",
+    "transport médical Haute-Savoie",
+    "VSL Haute-Savoie",
+    "taxi conventionné Annecy",
+    "taxi conventionné Cluses",
+    "taxi conventionné Bonneville",
+  ],
+});
 
 export default function VilleIndexPage() {
+  const breadcrumbJsonLd = buildBreadcrumbJsonLd([
+    { name: "Accueil", path: "/" },
+    { name: "Villes", path: "/ville" },
+  ]);
+  const collectionJsonLd = buildCollectionPageJsonLd({
+    name: "Villes desservies Taxi du Môle",
+    description:
+      "Collection des pages locales Taxi du Môle pour les transports médicaux conventionnés en Haute-Savoie.",
+    path: "/ville",
+  });
+
   return (
     <SiteChrome>
+      <script
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+        type="application/ld+json"
+      />
+      <script
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionJsonLd) }}
+        type="application/ld+json"
+      />
       <section className="relative overflow-hidden rounded-[36px] border border-white/60 bg-white/70 p-5 shadow-[0_24px_60px_rgba(17,17,17,0.08)] backdrop-blur-xl md:p-8">
         <RoadAccent
           className="right-[-8%] top-[12%] h-[360px] w-[52%] opacity-[0.11]"
@@ -35,7 +69,7 @@ export default function VilleIndexPage() {
           <p className="text-sm font-semibold uppercase tracking-[0.32em] text-black/45">
             Ville
           </p>
-          <h1 className="font-display mt-4 text-3xl font-semibold leading-[1.06] text-black md:text-5xl xl:text-[3.35rem]">
+          <h1 className="marketing-title marketing-title-left font-display mt-4 text-3xl font-semibold leading-[1.06] text-black md:text-5xl xl:text-[3.35rem]">
             Nos Pages Locales En Haute-Savoie
           </h1>
           <p className="mt-4 max-w-4xl text-base leading-8 text-black/65 md:text-lg">

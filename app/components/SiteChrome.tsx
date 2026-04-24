@@ -54,11 +54,11 @@ export function SectionHeader({
   copy: string;
 }) {
   return (
-    <div className="max-w-3xl">
+    <div className="max-w-4xl">
       <p className="text-sm font-semibold uppercase tracking-[0.32em] text-black/45">
         {eyebrow}
       </p>
-      <h2 className="font-display mt-4 text-3xl font-semibold leading-tight text-black md:text-5xl">
+      <h2 className="marketing-title marketing-title-left font-display mt-4 text-3xl font-semibold leading-[1.08] text-black md:text-5xl">
         {title}
       </h2>
       <p className="mt-4 text-base leading-8 text-black/65 md:text-lg">{copy}</p>

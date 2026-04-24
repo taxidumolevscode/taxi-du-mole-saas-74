@@ -4,6 +4,7 @@ export const navItems = [
   { href: "/hopitaux", label: "Hôpitaux & Cliniques", tag: "03" },
   { href: "/destinations", label: "Types De Destination", tag: "04" },
   { href: "/savoie", label: "Savoie", tag: "05" },
+  { href: "/trajet", label: "Trajets", tag: "06" },
 ];
 
 export const seoByClient = [

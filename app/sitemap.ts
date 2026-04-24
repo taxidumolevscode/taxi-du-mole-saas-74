@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { medicalCityLinks } from "./medical-cities";
+import { routePages } from "./route-data";
 
 const siteUrl = "https://taxidumole.fr";
 
@@ -43,11 +44,23 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly",
       priority: 0.85,
     },
+    {
+      url: `${siteUrl}/trajet`,
+      lastModified,
+      changeFrequency: "weekly",
+      priority: 0.85,
+    },
     ...medicalCityLinks.map((city) => ({
       url: `${siteUrl}${city.href}`,
       lastModified,
       changeFrequency: "weekly" as const,
       priority: 0.75,
+    })),
+    ...routePages.map((route) => ({
+      url: `${siteUrl}/trajet/${route.slug}`,
+      lastModified,
+      changeFrequency: "weekly" as const,
+      priority: 0.74,
     })),
     {
       url: `${siteUrl}/mentions-legales`,

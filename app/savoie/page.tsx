@@ -147,7 +147,7 @@ export default function SavoiePage() {
             <p className="text-sm font-semibold uppercase tracking-[0.34em] text-black/45">
               Taxi Santé
             </p>
-            <h1 className="font-display mt-4 text-4xl font-semibold leading-tight md:text-6xl">
+            <h1 className="marketing-title marketing-title-left font-display mt-4 text-4xl font-semibold leading-[1.06] md:text-6xl">
               Taxi du Môle vous accompagne en Savoie, Haute-Savoie et Isère.
             </h1>
             <p className="mt-6 max-w-3xl text-lg leading-8 text-black/65">

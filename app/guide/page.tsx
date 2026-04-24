@@ -1,12 +1,50 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import { CarShowcase } from "../components/CarShowcase";
 import { RoadAccent } from "../components/RoadAccent";
 import { SectionHeader, SiteChrome } from "../components/SiteChrome";
+import {
+  buildBreadcrumbJsonLd,
+  buildCollectionPageJsonLd,
+  buildPageMetadata,
+} from "../lib/seo";
 import { cpamGuideSections } from "../site-data";
 
+export const metadata: Metadata = buildPageMetadata({
+  title: "Guide CPAM taxi conventionné | Taxi du Môle",
+  description:
+    "Guide pratique sur le taxi conventionné CPAM, la prise en charge, les remboursements, le tiers payant et les transports médicaux.",
+  path: "/guide",
+  keywords: [
+    "guide CPAM taxi conventionné",
+    "prise en charge taxi conventionné",
+    "remboursement transport médical",
+    "VSL ou taxi conventionné",
+  ],
+});
+
 export default function GuidePage() {
+  const breadcrumbJsonLd = buildBreadcrumbJsonLd([
+    { name: "Accueil", path: "/" },
+    { name: "Guide", path: "/guide" },
+  ]);
+  const collectionJsonLd = buildCollectionPageJsonLd({
+    name: "Guide CPAM Taxi du Môle",
+    description:
+      "Guide pratique pour comprendre le transport médical, la prescription et le taxi conventionné.",
+    path: "/guide",
+  });
+
   return (
     <SiteChrome>
+      <script
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+        type="application/ld+json"
+      />
+      <script
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionJsonLd) }}
+        type="application/ld+json"
+      />
       <section className="relative overflow-hidden rounded-[36px] border border-white/60 bg-white/70 p-5 shadow-[0_24px_60px_rgba(17,17,17,0.08)] backdrop-blur-xl md:p-8">
         <RoadAccent
           className="right-[-10%] top-[16%] h-[520px] w-[52%] opacity-[0.11]"

@@ -6,11 +6,31 @@ import { CarShowcase } from "../../components/CarShowcase";
 import { ContactReservationForm } from "../../components/ContactReservationForm";
 import { RoadAccent } from "../../components/RoadAccent";
 import { SectionHeader, SiteChrome } from "../../components/SiteChrome";
+import {
+  buildBreadcrumbJsonLd,
+  buildFaqJsonLd,
+  buildLocalBusinessJsonLd,
+  buildPageMetadata,
+  getSiteUrl,
+} from "../../lib/seo";
 import { getMedicalCityBySlug, medicalCities } from "../../medical-cities";
+import { routePages } from "../../route-data";
 
 type CityPageProps = {
   params: Promise<{ slug: string }>;
 };
+
+function buildCityKeywords(city: NonNullable<ReturnType<typeof getMedicalCityBySlug>>) {
+  return [
+    `taxi conventionné ${city.label}`,
+    `taxi CPAM ${city.label}`,
+    `transport médical ${city.label}`,
+    `VSL ${city.label}`,
+    `taxi médical ${city.label}`,
+    ...city.nearbyAreas.map((area) => `taxi conventionné ${area}`),
+    ...city.hospitals.slice(0, 3).map((hospital) => `${city.label} ${hospital}`),
+  ];
+}
 
 export function generateStaticParams() {
   return medicalCities.map((city) => ({ slug: city.slug }));
@@ -26,10 +46,12 @@ export async function generateMetadata({
     return {};
   }
 
-  return {
+  return buildPageMetadata({
     title: `${city.title} | Taxi du Môle`,
     description: city.description,
-  };
+    path: `/ville/${city.slug}`,
+    keywords: buildCityKeywords(city),
+  });
 }
 
 export default async function CityPage({ params }: CityPageProps) {
@@ -40,8 +62,74 @@ export default async function CityPage({ params }: CityPageProps) {
     notFound();
   }
 
+  const siteUrl = getSiteUrl();
+  const cityUrl = `${siteUrl}/ville/${city.slug}`;
+  const relatedCities = city.nearbyAreas
+    .map((area) =>
+      medicalCities.find(
+        (candidate) => candidate.label.toLowerCase() === area.toLowerCase(),
+      ),
+    )
+    .filter((candidate): candidate is (typeof medicalCities)[number] => Boolean(candidate))
+    .slice(0, 4);
+  const relatedRoutes = routePages
+    .filter((route) => route.fromSlug === city.slug || route.toSlug === city.slug)
+    .slice(0, 4);
+
+  const directAnswers = [
+    {
+      question: `Comment réserver un taxi conventionné à ${city.label} ?`,
+      answer: `Pour réserver depuis ${city.label}, il suffit d'indiquer votre adresse de départ, votre établissement de destination, la date du rendez-vous et votre situation médicale afin d'organiser une prise en charge adaptée.`,
+    },
+    {
+      question: `Le tiers payant est-il possible depuis ${city.label} ?`,
+      answer: `Le tiers payant peut être mis en place selon votre dossier, la prescription médicale et les conditions de prise en charge applicables à votre transport.`,
+    },
+    {
+      question: `Quelles destinations médicales sont fréquemment desservies depuis ${city.label} ?`,
+      answer: `Depuis ${city.label}, les trajets peuvent concerner les hôpitaux et cliniques de Haute-Savoie ainsi que des centres spécialisés plus éloignés selon votre parcours de soins.`,
+    },
+  ];
+
+  const faqJsonLd = buildFaqJsonLd(city.faq);
+
+  const localBusinessJsonLd = buildLocalBusinessJsonLd({
+    url: cityUrl,
+    areaServed: [city.label, ...city.nearbyAreas, "Haute-Savoie"],
+    serviceType: [
+      "Taxi conventionné CPAM",
+      "Transport médical assis",
+      "VSL",
+      "Transport vers hôpitaux et cliniques",
+    ],
+  });
+
+  const breadcrumbJsonLd = buildBreadcrumbJsonLd([
+    { name: "Accueil", path: "/" },
+    { name: "Villes", path: "/ville" },
+    { name: city.label, path: `/ville/${city.slug}` },
+  ]);
+
   return (
     <SiteChrome>
+      <script
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(localBusinessJsonLd),
+        }}
+        type="application/ld+json"
+      />
+      <script
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(faqJsonLd),
+        }}
+        type="application/ld+json"
+      />
+      <script
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbJsonLd),
+        }}
+        type="application/ld+json"
+      />
       <section className="relative overflow-hidden rounded-[36px] border border-white/60 bg-white/70 p-5 shadow-[0_24px_60px_rgba(17,17,17,0.08)] backdrop-blur-xl md:p-8">
         <RoadAccent
           className="bottom-[-6%] right-[-8%] h-[320px] w-[46%] opacity-[0.12]"
@@ -123,6 +211,27 @@ export default async function CityPage({ params }: CityPageProps) {
                 ))}
               </div>
             </div>
+
+            <div className="rounded-[30px] border border-black/10 bg-white p-6">
+              <p className="text-sm font-semibold uppercase tracking-[0.28em] text-[#ffb600]">
+                Réponses Rapides
+              </p>
+              <div className="mt-5 grid gap-3">
+                {directAnswers.map((item) => (
+                  <div
+                    key={item.question}
+                    className="rounded-[22px] border border-black/10 bg-[#f8f6ee] px-4 py-4"
+                  >
+                    <h2 className="text-base font-semibold text-black">
+                      {item.question}
+                    </h2>
+                    <p className="mt-2 text-sm leading-7 text-black/72">
+                      {item.answer}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
 
           <div className="space-y-4">
@@ -194,6 +303,24 @@ export default async function CityPage({ params }: CityPageProps) {
                 >
                   Voir Toutes Les Villes
                 </Link>
+                {relatedCities.map((relatedCity) => (
+                  <Link
+                    key={relatedCity.slug}
+                    className="rounded-[20px] border border-black/10 bg-[#f8f6ee] px-4 py-4 text-sm font-semibold text-black hover:-translate-y-0.5"
+                    href={`/ville/${relatedCity.slug}`}
+                  >
+                    Taxi conventionné à {relatedCity.label}
+                  </Link>
+                ))}
+                {relatedRoutes.map((route) => (
+                  <Link
+                    key={route.slug}
+                    className="rounded-[20px] border border-black/10 bg-[#f8f6ee] px-4 py-4 text-sm font-semibold text-black hover:-translate-y-0.5"
+                    href={`/trajet/${route.slug}`}
+                  >
+                    Taxi {route.from} vers {route.to}
+                  </Link>
+                ))}
               </div>
             </div>
           </div>

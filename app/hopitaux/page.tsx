@@ -1,12 +1,50 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import { CarShowcase } from "../components/CarShowcase";
 import { RoadAccent } from "../components/RoadAccent";
 import { SectionHeader, SiteChrome } from "../components/SiteChrome";
+import {
+  buildBreadcrumbJsonLd,
+  buildCollectionPageJsonLd,
+  buildPageMetadata,
+} from "../lib/seo";
 import { hospitals } from "../site-data";
 
+export const metadata: Metadata = buildPageMetadata({
+  title: "Hôpitaux et cliniques Haute-Savoie | Taxi du Môle",
+  description:
+    "Retrouvez les hôpitaux et cliniques desservis par Taxi du Môle en Haute-Savoie pour les transports médicaux conventionnés.",
+  path: "/hopitaux",
+  keywords: [
+    "hôpitaux Haute-Savoie taxi conventionné",
+    "clinique Annecy taxi",
+    "CHAL taxi conventionné",
+    "transport médical hôpital Haute-Savoie",
+  ],
+});
+
 export default function HopitauxPage() {
+  const breadcrumbJsonLd = buildBreadcrumbJsonLd([
+    { name: "Accueil", path: "/" },
+    { name: "Hôpitaux", path: "/hopitaux" },
+  ]);
+  const collectionJsonLd = buildCollectionPageJsonLd({
+    name: "Hôpitaux et cliniques desservis",
+    description:
+      "Collection des établissements hospitaliers et cliniques régulièrement desservis par Taxi du Môle.",
+    path: "/hopitaux",
+  });
+
   return (
     <SiteChrome>
+      <script
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+        type="application/ld+json"
+      />
+      <script
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionJsonLd) }}
+        type="application/ld+json"
+      />
       <section className="relative overflow-hidden rounded-[36px] border border-white/60 bg-white/70 p-5 shadow-[0_24px_60px_rgba(17,17,17,0.08)] backdrop-blur-xl md:p-8">
         <RoadAccent
           className="bottom-[4%] left-[-10%] h-[320px] w-[44%] opacity-[0.14]"
