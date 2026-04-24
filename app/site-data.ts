@@ -3,6 +3,7 @@ export const navItems = [
   { href: "/guide", label: "Guide", tag: "02" },
   { href: "/hopitaux", label: "Hôpitaux & Cliniques", tag: "03" },
   { href: "/destinations", label: "Types De Destination", tag: "04" },
+  { href: "/savoie", label: "Savoie", tag: "05" },
 ];
 
 export const seoByClient = [
